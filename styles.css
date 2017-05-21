@@ -1,0 +1,89 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+/*MAIN FORM*/
+
+main {
+  height: 45vh;
+  padding: 20px;
+  width: 100%;
+  background-color: #E5F3F2;
+  text-align: center;
+}
+form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+h1 {
+  margin: 10px 0 30px 0;
+  color: #6D6E71;
+  font-family: 'Roboto Slab', serif;
+  font-size: 70px;
+}
+.inputs {
+  display: block;
+  height: 40px;
+  width: 60%;
+  margin-bottom: 25px;
+}
+.idea-color {
+  color: #00A79D;
+}
+#submit-btn {
+  background-color: #00A79D;
+  color: #FFFFFF;
+}
+#submit-btn:hover {
+  background-color: #045E55;
+}
+
+/*IDEASECTION*/
+
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+article {
+  border-bottom: 1px solid #D1D3D4;
+  width: 60%;
+}
+div {
+  margin-bottom: 20px;
+}
+#delete-btn {
+  float: right;
+}
+.icons {
+  height: 25px;
+  width: 25px;
+}
+h2 {
+  display: inline-block;
+  padding-bottom: 20px;
+  color: #6D6E71;
+  font-family: 'Roboto Slab', serif;
+}
+.description {
+  color: #939598;
+}
+.quality {
+  display: inline-block;
+  color: #6D6E71;
+}
+.voting-container {
+  display: flex;
+  align-items: center;
+}
+.voting-container img {
+  margin-right: 20px;
+}
