@@ -19,6 +19,9 @@ button {
 button:hover {
   cursor: pointer;
 }
+button:focus {
+  outline: 0;
+}
 
 /*MAIN FORM*/
 
