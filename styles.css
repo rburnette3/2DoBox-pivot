@@ -109,6 +109,7 @@ h2 {
   overflow-wrap: break-word;
   word-wrap: break-word;
   hyphens: auto;
+  line-height: 1.2;
 }
 #upvote-btn {
   background-image: url('assets/upvote.svg');
