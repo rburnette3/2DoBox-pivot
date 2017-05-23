@@ -10,18 +10,17 @@ function setInLocalStorage() {
   console.log('string idea list', stringIdeaList)
 }
 function getFromLocalStorage() {
-  var getIdeas = localStorage.getItem('ideas')
-  var parseIdeaList = JSON.parse(getIdeas);
+  var parseIdeaList = JSON.parse(localStorage.getItem('ideas'));
+  return parseIdeaList
 }
+
+
 function loadIdeasFromStorage() {
   if (localStorage.getItem('ideas')) {
-    var getIdeas = localStorage.getItem('ideas')
-    var parseIdeaList = JSON.parse(getIdeas);
-    console.log('idea list', ideaList)
-    console.log('parseIdeaList', parseIdeaList)
-    ideaList = parseIdeaList;
+    ideaList = getFromLocalStorage();
+    console.log('ideaList', ideaList)
     console.log('idea list after assigning parse', ideaList)
-    parseIdeaList.forEach(function(idea) {
+    ideaList.forEach(function(idea) {
       $('.article-container').prepend(`<article id='${idea.id}'>
         <div class="description-container">
           <h2>${idea.title}</h2>
@@ -137,14 +136,42 @@ $('.article-container').on('click', '#delete-btn', function() {
   console.log('click');
 });
 
-
-$('.article-container').on('click', 'h2', function() {
+//keydown and focusOut and blur()
+$('.article-container').on('click', 'h2', function(e) {
+  console.log('etarget', $(e.target))
+  console.log('etarget parent', $(e.target).parent().parent().prop('id'))
   $(this).get(0).contentEditable = "true";
+  // look this up!
   $(this).focus();
+  var index = findIndexIdeaList($(e.target).parent().parent().prop('id'));
+  console.log('index ', index)
   //conditional to check when user clicks outside of h2 or presses enter
   //then take new value of h2
   // editedText();
 })
+
+
+
+function findIndexIdeaList(id) {
+  var list = getFromLocalStorage();
+  var mapIdea = list.map(function(idea) {
+    console.log('idea.id, ', idea.id)
+    console.log('idea param, ', idea)
+    return idea.id;
+  })
+  console.log('map Idea, ', mapIdea)
+
+  var specificID = mapIdea.filter(function(number) {
+    if (parseInt(id) === number) {
+      console.log('number ', number)
+      return number
+    }
+  })
+  console.log('specific ID ', specificID)
+  return specificID
+}
+
+
 
 // function editedText() {
 //   $(window).on('click', function() {
