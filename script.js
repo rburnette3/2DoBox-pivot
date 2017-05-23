@@ -1,11 +1,13 @@
 // var titleInput = $('#title-input').val();
 // var bodyInput = $('#body-input').val();
 var searchInput = $('#search-input').val();
+
 var ideaList = [];
 
 function setInLocalStorage() {
   var stringIdeaList = JSON.stringify(ideaList);
   localStorage.setItem('ideas', stringIdeaList);
+  console.log('string idea list', stringIdeaList)
 }
 function getFromLocalStorage() {
   var getIdeas = localStorage.getItem('ideas')
@@ -15,6 +17,10 @@ function loadIdeasFromStorage() {
   if (localStorage.getItem('ideas')) {
     var getIdeas = localStorage.getItem('ideas')
     var parseIdeaList = JSON.parse(getIdeas);
+    console.log('idea list', ideaList)
+    console.log('parseIdeaList', parseIdeaList)
+    ideaList = parseIdeaList;
+    console.log('idea list after assigning parse', ideaList)
     parseIdeaList.forEach(function(idea) {
       $('.article-container').prepend(`<article id='${idea.id}'>
         <div class="description-container">
@@ -34,27 +40,16 @@ function loadIdeasFromStorage() {
   }
 }
 
-loadIdeasFromStorage();
-
-$(window).on('keyup', function(e) {
-  if(e.keyCode === 13) {
-    $('#submit-btn').trigger('submit');
-    console.log('submit-click');
-  }
-});
-
-function ideaObject(title, body, id) {
-  this.title = title;
-  this.body = body;
-  this.id = id;
-}
 $('#submit-btn').on('click', function(e) {
   e.preventDefault();
   var titleInput = $('#title-input').val();
   var bodyInput = $('#body-input').val();
   var titleId = Date.now();
-  ideaList.push(new ideaObject(titleInput, bodyInput, titleId));
-  console.log('idealist', ideaList)
+  var newIdea = new ideaObject(titleInput, bodyInput, titleId)
+
+  ideaList.push(newIdea);
+  console.log('idea list after add', ideaList)
+  console.log('new Idea object', newIdea)
   $('.article-container').prepend(`<article id='${titleId}'>
     <div class="description-container">
       <h2>${titleInput}</h2>
@@ -69,8 +64,26 @@ $('#submit-btn').on('click', function(e) {
   </article>`);
   // $('').prop('disabled', true);
   setInLocalStorage();
+  console.log('idea list array', ideaList)
   clearInputs();
 });
+
+
+
+loadIdeasFromStorage();
+
+$(window).on('keyup', function(e) {
+  if(e.keyCode === 13) {
+    $('#submit-btn').trigger('submit');
+    console.log('submit-click');
+  }
+});
+
+function ideaObject(title, body, id) {
+  this.title = title;
+  this.body = body;
+  this.id = id;
+}
 
 
 $('.article-container').on('click', '.description', function() {
