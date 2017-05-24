@@ -37,6 +37,8 @@ var ideaList = getFromLocalStorage() || [];
 
 $('#submit-btn').on('click', function(e) {
   e.preventDefault();
+  console.log('submit clicked')
+  toggleSaveDisable();
   var titleInput = $('#title-input').val();
   var bodyInput = $('#body-input').val();
   var titleId = Date.now();
@@ -54,17 +56,10 @@ $('#submit-btn').on('click', function(e) {
       <p class="quality">quality: <span class="default swill">swill</span></p>
     </div>
   </article>`);
-  // $('').prop('disabled', true);
   setInLocalStorage();
   clearInputs();
 });
 
-$(window).on('keyup', function(e) {
-  if(e.keyCode === 13) {
-    $('#submit-btn').trigger('submit');
-
-  }
-});
 
 function ideaObject(title, body, id) {
   this.title = title;
@@ -104,6 +99,7 @@ function clearInputs() {
   $('#title-input').val('');
   $('#body-input').val('');
   $('#title-input').focus();
+  toggleSaveDisable();
 }
 
 $('.article-container').on('click', '#delete-btn', function(e) {
@@ -171,4 +167,32 @@ function findIndexIdeaList(id) {
     }
   })
   return foundObject
+}
+
+$(window).on('load', function() {
+  $('#title-input').focus();
+})
+
+$(window).on('keyup', function(e) {
+  if(e.keyCode === 13 && ($('#title-input').val() !== '') && ($('#body-input').val() !== '')){
+    toggleSaveDisable();
+  }
+});
+
+$('#title-input').on('input', function() {
+  toggleSaveDisable();
+})
+
+$('#body-input').on('input', function() {
+  toggleSaveDisable();
+})
+
+function toggleSaveDisable() {
+  var $title = $('#title-input').val();
+  var $body = $('#body-input').val();
+  if (($title.length === 0) || ($body.length === 0)) {
+    $('#submit-btn').prop('disabled', true);
+  } else {
+    $('#submit-btn').prop('disabled', false);
+  }
 }
