@@ -1,6 +1,6 @@
 loadIdeasFromStorage();
 var searchInput = $('#search-input').val();
-
+var ideaList = getFromLocalStorage() || [];
 
 function setInLocalStorage() {
   var stringIdeaList = JSON.stringify(ideaList);
@@ -24,7 +24,7 @@ function loadIdeasFromStorage() {
         <div class="voting-container">
           <button class="icons" id="upvote-btn"></button>
           <button class="icons" id="downvote-btn"></button>
-          <p class="quality">quality: <span class="default swill">swill</span></p>
+          <p class="quality">quality: <span class="quality-level">${idea.quality}</span></p>
         </div>
       </article>`)
     });
@@ -33,16 +33,15 @@ function loadIdeasFromStorage() {
   }
 }
 
-var ideaList = getFromLocalStorage() || [];
-
 $('#submit-btn').on('click', function(e) {
   e.preventDefault();
   console.log('submit clicked')
-  toggleSaveDisable();
+  // toggleSaveDisable();
   var titleInput = $('#title-input').val();
   var bodyInput = $('#body-input').val();
+  var quality = 'swill';
   var titleId = Date.now();
-  var newIdea = new ideaObject(titleInput, bodyInput, titleId)
+  var newIdea = new ideaObject(titleInput, bodyInput, titleId, quality)
   ideaList.push(newIdea);
   $('.article-container').prepend(`<article id='${titleId}'>
     <div class="description-container">
@@ -53,7 +52,7 @@ $('#submit-btn').on('click', function(e) {
     <div class="voting-container">
       <button class="icons" id="upvote-btn"></button>
       <button class="icons" id="downvote-btn"></button>
-      <p class="quality">quality: <span class="default swill">swill</span></p>
+      <p class="quality">quality: <span class="quality-level">${newIdea.quality}</span></p>
     </div>
   </article>`);
   setInLocalStorage();
@@ -61,39 +60,15 @@ $('#submit-btn').on('click', function(e) {
 });
 
 
-function ideaObject(title, body, id) {
+function ideaObject(title, body, id, quality) {
   this.title = title;
   this.body = body;
   this.id = id;
+  this.quality = quality;
 }
 
-$('.article-container').on('click', '#upvote-btn', function() {
-  if($(this).parent().find('.default').hasClass('swill')) {
-    $(this).parent().find('.default').addClass('plausible');
-    $(this).parent().find('.default').removeClass('swill');
-    $(this).parent().find('.default').text('plausible');
-    $('this #downvote-btn').prop('disabled', false);
-  } else if ($(this).parent().find('.default').hasClass('plausible')) {
-    $(this).parent().find('.default').addClass('genius');
-    $(this).parent().find('.default').removeClass('plausible');
-    $(this).parent().find('.default').text('genius');
-    $('this #upvote-btn').prop('disabled', true);
-  }
-});
-
-$('.article-container').on('click', '#downvote-btn', function() {
-  if($(this).parent().find('.default').hasClass('plausible')) {
-    $(this).parent().find('.default').addClass('swill');
-    $(this).parent().find('.default').removeClass('plausible');
-    $(this).parent().find('.default').text('swill');
-    $('this #downvote-btn').prop('disabled', true);
-  } else if ($(this).parent().find('.default').hasClass('genius')) {
-    $(this).parent().find('.default').addClass('plausible');
-    $(this).parent().find('.default').removeClass('genius');
-    $(this).parent().find('.default').text('plausible');
-    $('this #upvote-btn').prop('disabled', false);
-  }
-});
+$('.article-container').on('click', '#upvote-btn', changeUpvoteQuality);
+$('.article-container').on('click', '#downvote-btn', changeDownvoteQuality);
 
 function clearInputs() {
   $('#title-input').val('');
@@ -110,35 +85,77 @@ $('.article-container').on('click', '#delete-btn', function(e) {
   $(this).parents('article').remove();
 });
 
-//keydown and focusOut and blur()
-$('.article-container').on('focusout', 'h2', function(e) {
-  $(this).hideFocus = true
+$('.article-container').on('focusout', 'h2', replaceEditedTitle);
+$('.article-container').on('focusout', '.description', replaceEditedDescription);
+
+function replaceEditedTitle(e) {
   var editedObject = findIndexIdeaList($(e.target).parent().parent().prop('id'));
   localStorage.clear();
   editedObject.title = $(this).text()
   ideaList.splice(indexOfOriginalObject, 1, editedObject)
   setInLocalStorage();
-})
+}
+
+function replaceEditedDescription(e) {
+  var editedObject = findIndexIdeaList($(e.target).parent().parent().prop('id'));
+  localStorage.clear();
+  editedObject.body = $(this).text()
+  ideaList.splice(indexOfOriginalObject, 1, editedObject)
+  setInLocalStorage();
+}
+
+function changeUpvoteQuality(e) {
+  var editedObject = findIndexIdeaList($(e.target).parent().parent().prop('id'));
+  localStorage.clear();
+  switch (editedObject.quality) {
+    case 'swill':
+      editedObject.quality = 'plausible'
+      $(this).parent().find('.quality-level').text('plausible')
+      break;
+    case 'plausible':
+      editedObject.quality = 'genius'
+      $(this).parent().find('.quality-level').text('genius')
+      break;
+    default:
+      break;
+  }
+  ideaList.splice(indexOfOriginalObject, 1, editedObject)
+  setInLocalStorage();
+  // loadIdeasFromStorage();
+}
+
+function changeDownvoteQuality(e) {
+  var editedObject = findIndexIdeaList($(e.target).parent().parent().prop('id'));
+  localStorage.clear();
+  switch (editedObject.quality) {
+    case 'genius':
+      editedObject.quality = 'plausible'
+      $(this).parent().find('.quality-level').text('plausible')
+      break;
+    case 'plausible':
+      editedObject.quality = 'swill'
+      $(this).parent().find('.quality-level').text('swill')
+      break;
+    default:
+      break;
+  }
+  ideaList.splice(indexOfOriginalObject, 1, editedObject)
+  setInLocalStorage();
+  // loadIdeasFromStorage();
+}
 
 $('.article-container').on('keydown', 'h2', function(e) {
   if(e.keyCode === 13) {
-    $(this).hideFocus = true
-    var editedObject = findIndexIdeaList($(e.target).parent().parent().prop('id'));
-    localStorage.clear();
-    editedObject.title = $(this).text()
-    ideaList.splice(indexOfOriginalObject, 1, editedObject)
-    setInLocalStorage();
     $(this).parent().find('.description').focus();
   }
 })
 
-$('.article-container').on('focusout', '.description', function(e) {
-  $(this).hideFocus = true
-  var editedObject = findIndexIdeaList($(e.target).parent().parent().prop('id'));
-  editedObject.body = $(this).text()
-  ideaList.splice(indexOfOriginalObject, 1, editedObject)
-  localStorage.clear();
-  setInLocalStorage();
+$('.article-container').on('keydown', '.description', function(e) {
+  if(e.keyCode === 13) {
+    e.preventDefault();
+    // $('body').focus();
+    // some way to focus out of the body paragraph
+  }
 })
 
 
@@ -188,9 +205,9 @@ $('#body-input').on('input', function() {
 })
 
 function toggleSaveDisable() {
-  var $title = $('#title-input').val();
-  var $body = $('#body-input').val();
-  if (($title.length === 0) || ($body.length === 0)) {
+  var title = $('#title-input').val();
+  var body = $('#body-input').val();
+  if ((title.length === 0) || (body.length === 0)) {
     $('#submit-btn').prop('disabled', true);
   } else {
     $('#submit-btn').prop('disabled', false);
