@@ -17,9 +17,9 @@ function loadIdeasFromStorage() {
     ideaList.forEach(function(idea) {
       $('.article-container').prepend(`<article id='${idea.id}'>
         <div class="description-container">
-          <h2>${idea.title}</h2>
+          <h2 contentEditable = 'true'>${idea.title}</h2>
           <button class="icons" id="delete-btn"></button>
-          <p class="description">${idea.body}</p>
+          <p class="description" contentEditable = 'true'>${idea.body}</p>
         </div>
         <div class="voting-container">
           <button class="icons" id="upvote-btn"></button>
@@ -44,9 +44,9 @@ $('#submit-btn').on('click', function(e) {
   ideaList.push(newIdea);
   $('.article-container').prepend(`<article id='${titleId}'>
     <div class="description-container">
-      <h2>${titleInput}</h2>
+      <h2 contentEditable = 'true'>${titleInput}</h2>
       <button class="icons" id="delete-btn"></button>
-      <p class="description">${bodyInput}</p>
+      <p class="description" contentEditable = 'true'>${bodyInput}</p>
     </div>
     <div class="voting-container">
       <button class="icons" id="upvote-btn"></button>
@@ -62,6 +62,7 @@ $('#submit-btn').on('click', function(e) {
 $(window).on('keyup', function(e) {
   if(e.keyCode === 13) {
     $('#submit-btn').trigger('submit');
+
   }
 });
 
@@ -113,9 +114,26 @@ $('.article-container').on('click', '#delete-btn', function(e) {
   $(this).parents('article').remove();
 });
 
-$('.article-container').on('click', '.description', function() {
-  $(this).get(0).contentEditable = "true";
-  $(this).focus();
+//keydown and focusOut and blur()
+$('.article-container').on('focusout', 'h2', function(e) {
+  $(this).hideFocus = true
+  var editedObject = findIndexIdeaList($(e.target).parent().parent().prop('id'));
+  localStorage.clear();
+  editedObject.title = $(this).text()
+  ideaList.splice(indexOfOriginalObject, 1, editedObject)
+  setInLocalStorage();
+})
+
+$('.article-container').on('keydown', 'h2', function(e) {
+  if(e.keyCode === 13) {
+    $(this).hideFocus = true
+    var editedObject = findIndexIdeaList($(e.target).parent().parent().prop('id'));
+    localStorage.clear();
+    editedObject.title = $(this).text()
+    ideaList.splice(indexOfOriginalObject, 1, editedObject)
+    setInLocalStorage();
+    $(this).parent().find('.description').focus();
+  }
 })
 
 $('.article-container').on('focusout', '.description', function(e) {
@@ -127,19 +145,6 @@ $('.article-container').on('focusout', '.description', function(e) {
   setInLocalStorage();
 })
 
-$('.article-container').on('click', 'h2', function(e) {
-  $(this).get(0).contentEditable = "true";
-  $(this).focus();
-})
-//keydown and focusOut and blur()
-$('.article-container').on('focusout', 'h2', function(e) {
-  $(this).hideFocus = true
-  var editedObject = findIndexIdeaList($(e.target).parent().parent().prop('id'));
-  localStorage.clear();
-  editedObject.title = $(this).text()
-  ideaList.splice(indexOfOriginalObject, 1, editedObject)
-  setInLocalStorage();
-})
 
 var indexOfOriginalObject;
 

@@ -105,7 +105,7 @@ h2 {
 .description {
   color: #939598;
   width: 90%;
-  width: 90%;
+  padding: 3px;
   overflow-wrap: break-word;
   word-wrap: break-word;
   hyphens: auto;
