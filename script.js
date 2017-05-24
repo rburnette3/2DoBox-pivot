@@ -1,6 +1,6 @@
 loadIdeasFromStorage();
 var searchInput = $('#search-input').val();
-var ideaList = [];
+
 
 function setInLocalStorage() {
   var stringIdeaList = JSON.stringify(ideaList);
@@ -32,6 +32,8 @@ function loadIdeasFromStorage() {
     console.log('no ideas!!!')
   }
 }
+
+var ideaList = getFromLocalStorage() || [];
 
 $('#submit-btn').on('click', function(e) {
   e.preventDefault();
@@ -133,9 +135,9 @@ $('.article-container').on('click', 'h2', function(e) {
 $('.article-container').on('focusout', 'h2', function(e) {
   $(this).hideFocus = true
   var editedObject = findIndexIdeaList($(e.target).parent().parent().prop('id'));
+  localStorage.clear();
   editedObject.title = $(this).text()
   ideaList.splice(indexOfOriginalObject, 1, editedObject)
-  localStorage.clear();
   setInLocalStorage();
 })
 
@@ -159,6 +161,7 @@ function findIndexIdeaList(id) {
     if (parseInt(object.id) === idAsNumber) {
       foundObject = object;
       indexOfOriginalObject = index;
+      console.log('indexOfOriginal Object: ' + indexOfOriginalObject, 'index: ' + index)
       return object
     }
   })
