@@ -85,10 +85,7 @@ function ideaObject(title, body, id) {
 }
 
 
-$('.article-container').on('click', '.description', function() {
-  $(this).get(0).contentEditable = "true";
-  $(this).focus();
-})
+
 
 $('.article-container').on('click', '#upvote-btn', function() {
   if($(this).parent().find('.default').hasClass('swill')) {
@@ -136,10 +133,23 @@ $('.article-container').on('click', '#delete-btn', function() {
   console.log('click');
 });
 
+$('.article-container').on('click', '.description', function() {
+  $(this).get(0).contentEditable = "true";
+  $(this).focus();
+})
+
+$('.article-container').on('focusout', '.description', function(e) {
+  $(this).hideFocus = true
+  var editedObject = findIndexIdeaList($(e.target).parent().parent().prop('id'));
+  editedObject.body = $(this).text()
+  ideaList.splice(indexOfOriginalObject, 1, editedObject)
+  localStorage.clear();
+  setInLocalStorage();
+})
+
 //keydown and focusOut and blur()
 $('.article-container').on('click', 'h2', function(e) {
   $(this).get(0).contentEditable = "true";
-  // look this up!
   $(this).focus();
 
 })
