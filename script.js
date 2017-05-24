@@ -103,7 +103,11 @@ function clearInputs() {
   $('#title-input').focus();
 }
 
-$('.article-container').on('click', '#delete-btn', function() {
+$('.article-container').on('click', '#delete-btn', function(e) {
+  var editedObject = findIndexIdeaList($(e.target).parent().parent().prop('id'));
+  ideaList.splice(indexOfOriginalObject, 1)
+  localStorage.clear();
+  setInLocalStorage();
   $(this).parents('article').remove();
 });
 
