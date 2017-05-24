@@ -60,6 +60,10 @@ h1 {
 #submit-btn:hover {
   background-color: #045E55;
 }
+#submit-btn:disabled {
+  background-color: #CFD8DC;
+}
+
 
 /*IDEASECTION*/
 
