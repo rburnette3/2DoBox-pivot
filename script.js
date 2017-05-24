@@ -138,19 +138,22 @@ $('.article-container').on('click', '#delete-btn', function() {
 
 //keydown and focusOut and blur()
 $('.article-container').on('click', 'h2', function(e) {
-  console.log('etarget', $(e.target))
-  console.log('etarget parent', $(e.target).parent().parent().prop('id'))
   $(this).get(0).contentEditable = "true";
   // look this up!
   $(this).focus();
-  var index = findIndexIdeaList($(e.target).parent().parent().prop('id'));
-  console.log('index ', index)
-  //conditional to check when user clicks outside of h2 or presses enter
-  //then take new value of h2
-  // editedText();
+
 })
 
+$('.article-container').on('focusout', 'h2', function(e) {
+  $(this).hideFocus = true
+  var editedObject = findIndexIdeaList($(e.target).parent().parent().prop('id'));
+  editedObject.title = $(this).text()
+  ideaList.splice(indexOfOriginalObject, 1, editedObject)
+  localStorage.clear();
+  setInLocalStorage();
+})
 
+var indexOfOriginalObject;
 
 
 function findIndexIdeaList(id) {
@@ -170,22 +173,15 @@ function findIndexIdeaList(id) {
   list.forEach(function(object, index) {
     if (parseInt(object.id) === idAsNumber) {
       foundObject = object;
+      indexOfOriginalObject = index;
       return object
     }
   })
+
+
   return foundObject
 }
 
 //return the object with that id
 // re-assign text values for keys of title and body of object
 //save to local storage
-
-
-// function editedText() {
-//   $(window).on('click', function() {
-//       var newH2 = $(`#${titleId}`).find('h2').text();
-//       console.log('title id', $(`#${titleId}`))
-//       console.log('new h2', newH2)
-//       console.log('edited Text clicked')
-//    })
-// }
