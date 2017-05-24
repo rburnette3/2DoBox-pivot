@@ -152,25 +152,33 @@ $('.article-container').on('click', 'h2', function(e) {
 
 
 
+
 function findIndexIdeaList(id) {
   var list = getFromLocalStorage();
   var mapIdea = list.map(function(idea) {
-    console.log('idea.id, ', idea.id)
-    console.log('idea param, ', idea)
     return idea.id;
   })
-  console.log('map Idea, ', mapIdea)
 
   var specificID = mapIdea.filter(function(number) {
     if (parseInt(id) === number) {
-      console.log('number ', number)
       return number
     }
   })
-  console.log('specific ID ', specificID)
-  return specificID
+  var idAsNumber = specificID[0];
+
+  var foundObject;
+  list.forEach(function(object, index) {
+    if (parseInt(object.id) === idAsNumber) {
+      foundObject = object;
+      return object
+    }
+  })
+  return foundObject
 }
 
+//return the object with that id
+// re-assign text values for keys of title and body of object
+//save to local storage
 
 
 // function editedText() {
