@@ -43,6 +43,9 @@ h1 {
   font-family: 'Roboto Slab', serif;
   font-size: 70px;
 }
+.idea-color {
+  color: #00A79D;
+}
 .inputs {
   border: 2px solid #d1d3d4;
   display: block;
@@ -57,8 +60,9 @@ h1 {
 .inputs::placeholder {
   color: #d1d3d4;
 }
-.idea-color {
-  color: #00A79D;
+textarea {
+  padding-top: 5px;
+  resize: none;
 }
 #submit-btn {
   background-color: #00A79D;
@@ -117,6 +121,7 @@ h2 {
   overflow: hidden;
 }
 .description {
+  border: none;
   color: #939598;
   width: 90%;
   padding: 3px 0;
@@ -184,8 +189,6 @@ h2 {
     height: 120px;
   }
   #body-input::placeholder {
-    position: relative;
-    bottom: 40px;
     font-size: 25px;
   }
   #submit-btn {
