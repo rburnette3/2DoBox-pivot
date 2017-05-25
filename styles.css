@@ -44,6 +44,7 @@ h1 {
   font-size: 70px;
 }
 .inputs {
+  border: 2px solid #d1d3d4;
   display: block;
   height: 40px;
   width: 60%;
@@ -54,7 +55,7 @@ h1 {
   color: #6D6E71;
 }
 .inputs::placeholder {
-  color: #939598;
+  color: #d1d3d4;
 }
 .idea-color {
   color: #00A79D;
