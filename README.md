@@ -12,13 +12,13 @@ Users can input a title and description for an idea and by clicking the save but
 * Full functionality of local storage, including upon page reload
 * All ideas are editable and will replace original idea object in local storage
 * Search function filters through title, description, and quality in real time, displaying appropriately corresponding ideas even after user adds new ideas to the list.
-* With (over)confidence
 
 ## Built With
 
 * [HTML](https://github.com/mschae16/idea-box/blob/master/index.html) - The structure of the page
 * [CSS](https://github.com/mschae16/idea-box/blob/master/styles.css) - Styling of the page
 * [jQuery](https://github.com/mschae16/idea-box/blob/master/script.js) - Behavioral aspects of the page
+* With (over)confidence!
 
 ## Link to Git Pages
 
