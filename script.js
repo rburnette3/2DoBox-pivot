@@ -18,7 +18,7 @@ function loadIdeasFromStorage() {
         <div class="description-container">
           <h2 contentEditable = 'true'>${idea.title}</h2>
           <button class="icons" id="delete-btn"></button>
-          <p class="description" contentEditable = 'true'>${idea.body}</p>
+          <textarea class="description" contentEditable = 'true'>${idea.body}</textarea>
         </div>
         <div class="voting-container">
           <button class="icons" id="upvote-btn"></button>
@@ -46,7 +46,7 @@ $('#submit-btn').on('click', function(e) {
     <div class="description-container">
       <h2 contentEditable = 'true'>${titleInput}</h2>
       <button class="icons" id="delete-btn"></button>
-      <p class="description" contentEditable = 'true'>${bodyInput}</p>
+      <textarea class="description" contentEditable = 'true'>${bodyInput}</textarea>
     </div>
     <div class="voting-container">
       <button class="icons" id="upvote-btn"></button>
@@ -194,6 +194,7 @@ $(window).on('load', function() {
 $(window).on('keyup', function(e) {
   if(e.keyCode === 13 && ($('#title-input').val() !== '') && ($('#body-input').val() !== '')){
     toggleSaveDisable();
+    $('#submit-btn').trigger('click');
   }
 });
 
@@ -208,12 +209,18 @@ $('#body-input').on('input', function() {
 function toggleSaveDisable() {
   var title = $('#title-input').val();
   var body = $('#body-input').val();
-  if ((title.length === 0) || (body.length === 0)) {
+  if ((title === '') || (body === '')) {
     $('#submit-btn').prop('disabled', true);
   } else {
     $('#submit-btn').prop('disabled', false);
   }
 }
+
+$('#body-input').on('keydown', function(e) {
+  if(e.keyCode === 13) {
+    e.preventDefault();
+  }
+});
 
 $('#search-input').on('input', filterIdeas);
 
@@ -242,7 +249,7 @@ function displayFilteredList() {
       <div class="description-container">
         <h2 contentEditable = 'true'>${idea.title}</h2>
         <button class="icons" id="delete-btn"></button>
-        <p class="description" contentEditable = 'true'>${idea.body}</p>
+        <textarea class="description" contentEditable = 'true'>${idea.body}</textarea>
       </div>
       <div class="voting-container">
         <button class="icons" id="upvote-btn"></button>
