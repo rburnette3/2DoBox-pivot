@@ -26,5 +26,5 @@ Users can input a title and description for an idea and by clicking the save but
 
 ## Contributors
 
-David Becker
-Margo Schaedel
+* David Becker
+* Margo Schaedel
