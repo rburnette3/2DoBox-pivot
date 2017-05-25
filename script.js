@@ -56,6 +56,7 @@ $('#submit-btn').on('click', function(e) {
   </article>`);
   setInLocalStorage();
   clearInputs();
+  filterIdeas();
 });
 
 
@@ -93,6 +94,7 @@ function replaceEditedTitle(e) {
   editedObject.title = $(this).text()
   ideaList.splice(indexOfOriginalObject, 1, editedObject)
   setInLocalStorage();
+  filterIdeas();
 }
 
 function replaceEditedDescription(e) {
@@ -101,6 +103,7 @@ function replaceEditedDescription(e) {
   editedObject.body = $(this).text()
   ideaList.splice(indexOfOriginalObject, 1, editedObject)
   setInLocalStorage();
+  filterIdeas();
 }
 
 function changeUpvoteQuality(e) {
@@ -120,7 +123,6 @@ function changeUpvoteQuality(e) {
   }
   ideaList.splice(indexOfOriginalObject, 1, editedObject)
   setInLocalStorage();
-  // loadIdeasFromStorage();
 }
 
 function changeDownvoteQuality(e) {
@@ -140,23 +142,21 @@ function changeDownvoteQuality(e) {
   }
   ideaList.splice(indexOfOriginalObject, 1, editedObject)
   setInLocalStorage();
-  // loadIdeasFromStorage();
 }
 
-$('.article-container').on('keydown', 'h2', function(e) {
-  if(e.keyCode === 13) {
-    $(this).parent().find('.description').focus();
-  }
-})
-
-$('.article-container').on('keydown', '.description', function(e) {
-  if(e.keyCode === 13) {
-    e.preventDefault();
-    // $('body').focus();
-    // some way to focus out of the body paragraph
-  }
-})
-
+// $('.article-container').on('keydown', 'h2', function(e) {
+//   if(e.keyCode === 13) {
+//     $(this).parent().find('.description').focus();
+//   }
+// })
+//
+// $('.article-container').on('keydown', '.description', function(e) {
+//   if(e.keyCode === 13) {
+//     e.preventDefault();
+//     // $('body').focus();
+//     // some way to focus out of the body paragraph
+//   }
+// })
 
 var indexOfOriginalObject;
 
@@ -218,17 +218,35 @@ $('#search-input').on('input', filterIdeas);
 function filterIdeas() {
   var searchInput = $('#search-input').val();
   ideaList = getFromLocalStorage() || [];
-  console.log('ideaList', ideaList)
   if(searchInput === '') {
+    filteredIdeas = [];
+    displayFilteredList();
     loadIdeasFromStorage();
   } else {
-    ideaList.filter(function(ideaObject) {
-      if((ideaObject.title.indexOf(searchInput) > -1) || (ideaObject.body.indexOf(searchInput) > -1)) {
-        console.log('ideaObject in filter fx', ideaObject)
-        return ideaObject;
-      }
+      filteredIdeas = ideaList.filter(function(ideaObject) {
+      return ((ideaObject.title.indexOf(searchInput) > -1) || (ideaObject.body.indexOf(searchInput) > -1))
+      console.log('ideaObject in filter fx', ideaObject)
     })
+    displayFilteredList();
+    console.log('filteredIdeas', filteredIdeas);
   }
 }
-
-  // return objects in a new array, then that needs to be prepended into display
+var filteredIdeas = [];
+function displayFilteredList() {
+  console.log('display filtered list is running')
+  $('.article-container').children().remove();
+  filteredIdeas.forEach(function(idea) {
+    $('.article-container').prepend(`<article id='${idea.id}'>
+      <div class="description-container">
+        <h2 contentEditable = 'true'>${idea.title}</h2>
+        <button class="icons" id="delete-btn"></button>
+        <p class="description" contentEditable = 'true'>${idea.body}</p>
+      </div>
+      <div class="voting-container">
+        <button class="icons" id="upvote-btn"></button>
+        <button class="icons" id="downvote-btn"></button>
+        <p class="quality">quality: <span class="quality-level">${idea.quality}</span></p>
+      </div>
+    </article>`)
+  });
+}
