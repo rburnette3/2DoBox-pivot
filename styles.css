@@ -1,25 +1,11 @@
+/*BASE STYLES*/
+
 * {
   box-sizing: border-box;
   margin: 0;
 }
 body {
   font-family: 'Open Sans', sans-serif;
-}
-
-button {
-  background: none;
-  border: none;
-  background-repeat: no-repeat;
-  background-size: contain;
-  height: 25px;
-  width: 25px;
-  padding: 0;
-}
-button:hover {
-  cursor: pointer;
-}
-button:focus {
-  outline: 0;
 }
 
 /*MAIN FORM*/
@@ -31,12 +17,6 @@ main {
   background-color: #E5F3F2;
   text-align: center;
 }
-form {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 100%;
-}
 h1 {
   margin: 10px 0 30px 0;
   color: #6D6E71;
@@ -46,28 +26,34 @@ h1 {
 .idea-color {
   color: #00A79D;
 }
+form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
 .inputs {
-  border: 2px solid #d1d3d4;
   display: block;
   height: 40px;
   width: 60%;
   margin-bottom: 25px;
   padding-left: 5px;
+  border: 2px solid #d1d3d4;
+  color: #6D6E71;
   font-size: 20px;
   letter-spacing: 0.8px;
-  color: #6D6E71;
-}
-.inputs::placeholder {
-  color: #d1d3d4;
 }
 textarea {
   padding-top: 5px;
   resize: none;
 }
+.inputs::placeholder {
+  color: #d1d3d4;
+}
 #submit-btn {
+  border: none;
   background-color: #00A79D;
   color: #FFFFFF;
-  border: none;
 }
 #submit-btn:hover {
   background-color: #045E55;
@@ -76,13 +62,12 @@ textarea {
   background-color: #939598;
 }
 
-
 /*IDEASECTION*/
 
 section {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  flex-direction: column;
   padding: 40px 20px 0 20px;
 }
 #search-input {
@@ -94,41 +79,58 @@ section {
   flex-direction: column;
   width: 100%;
 }
-
 article {
-  border-bottom: 1px solid #D1D3D4;
   margin-bottom: 25px;
   width: 60%;
+  border-bottom: 1px solid #D1D3D4;
 }
 div {
   margin-bottom: 25px;
 }
+h2 {
+  display: inline-block;
+  padding-bottom: 20px;
+  width: 80%;
+  color: #6D6E71;
+  font-family: 'Roboto Slab', serif;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.description {
+  width: 90%;
+  padding: 3px 0;
+  border: none;
+  color: #939598;
+  line-height: 1.2;
+}
+button {
+  height: 25px;
+  width: 25px;
+  padding: 0;
+  border: none;
+  background: none;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+button:hover {
+  cursor: pointer;
+}
+button:focus {
+  outline: 0;
+}
 #delete-btn {
-  background-image: url('assets/delete.svg');
   float: right;
+  background-image: url('assets/delete.svg');
 }
 #delete-btn:hover {
   background-image: url('assets/delete-hover.svg');
 }
-
-h2 {
-  display: inline-block;
-  padding-bottom: 20px;
-  color: #6D6E71;
-  font-family: 'Roboto Slab', serif;
-  text-overflow: ellipsis;
-  width: 80%;
-  overflow: hidden;
+.voting-container {
+  display: flex;
+  align-items: center;
 }
-.description {
-  border: none;
-  color: #939598;
-  width: 90%;
-  padding: 3px 0;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  hyphens: auto;
-  line-height: 1.2;
+.voting-container img {
+  margin-right: 20px;
 }
 .voting-container button {
   margin-right: 15px;
@@ -145,18 +147,12 @@ h2 {
 #downvote-btn:hover {
   background-image: url('assets/downvote-hover.svg');
 }
-
 .quality {
   display: inline-block;
   color: #6D6E71;
 }
-.voting-container {
-  display: flex;
-  align-items: center;
-}
-.voting-container img {
-  margin-right: 20px;
-}
+
+/*MEDIA QUERIES*/
 
 @media screen and (max-width: 850px) {
   h1 {
@@ -175,8 +171,8 @@ h2 {
   }
 @media screen and (max-width: 490px) {
   h1 {
-    font-size: 35px;
     margin: 0 0 20px 0;
+    font-size: 35px;
   }
   .inputs {
     width: 95%;
