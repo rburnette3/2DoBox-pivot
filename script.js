@@ -123,6 +123,7 @@ function changeUpvoteQuality(e) {
   }
   ideaList.splice(indexOfOriginalObject, 1, editedObject)
   setInLocalStorage();
+  filterIdeas();
 }
 
 function changeDownvoteQuality(e) {
@@ -142,6 +143,7 @@ function changeDownvoteQuality(e) {
   }
   ideaList.splice(indexOfOriginalObject, 1, editedObject)
   setInLocalStorage();
+  filterIdeas();
 }
 
 // $('.article-container').on('keydown', 'h2', function(e) {
@@ -216,7 +218,7 @@ function toggleSaveDisable() {
 $('#search-input').on('input', filterIdeas);
 
 function filterIdeas() {
-  var searchInput = $('#search-input').val();
+  var searchInput = $('#search-input').val().toUpperCase();
   ideaList = getFromLocalStorage() || [];
   if(searchInput === '') {
     filteredIdeas = [];
@@ -224,7 +226,7 @@ function filterIdeas() {
     loadIdeasFromStorage();
   } else {
       filteredIdeas = ideaList.filter(function(ideaObject) {
-      return ((ideaObject.title.indexOf(searchInput) > -1) || (ideaObject.body.indexOf(searchInput) > -1))
+      return ((ideaObject.title.toUpperCase().indexOf(searchInput) > -1) || (ideaObject.body.toUpperCase().indexOf(searchInput) > -1) || (ideaObject.quality.toUpperCase().indexOf(searchInput) > -1))
       console.log('ideaObject in filter fx', ideaObject)
     })
     displayFilteredList();
