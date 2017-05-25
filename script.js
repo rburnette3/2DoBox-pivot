@@ -1,5 +1,4 @@
 loadIdeasFromStorage();
-var searchInput = $('#search-input').val();
 var ideaList = getFromLocalStorage() || [];
 
 function setInLocalStorage() {
@@ -213,3 +212,23 @@ function toggleSaveDisable() {
     $('#submit-btn').prop('disabled', false);
   }
 }
+
+$('#search-input').on('input', filterIdeas);
+
+function filterIdeas() {
+  var searchInput = $('#search-input').val();
+  ideaList = getFromLocalStorage() || [];
+  console.log('ideaList', ideaList)
+  if(searchInput === '') {
+    loadIdeasFromStorage();
+  } else {
+    ideaList.filter(function(ideaObject) {
+      if((ideaObject.title.indexOf(searchInput) > -1) || (ideaObject.body.indexOf(searchInput) > -1)) {
+        console.log('ideaObject in filter fx', ideaObject)
+        return ideaObject;
+      }
+    })
+  }
+}
+
+  // return objects in a new array, then that needs to be prepended into display
