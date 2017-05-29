@@ -75,11 +75,31 @@ section {
   align-items: center;
   display: flex;
   flex-direction: column;
-  padding: 40px 20px 0 20px;
+  padding: 10px 20px 0 20px;
 }
 
-#search-input {
-  margin-bottom: 45px;
+#filter-input {
+  margin-bottom: 25px;
+}
+
+.sort-btn-container {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 55px;
+}
+
+.sort-btn {
+  width: 65px;
+  background: #939598;
+  color: #FFFFFF;
+  font-size: 14px;
+  border-radius: 25px;
+
+}
+
+.sort-btn:hover {
+  background: #00A79D;
 }
 
 .article-container {
@@ -107,7 +127,6 @@ h2 {
   padding-bottom: 20px;
   text-overflow: ellipsis;
   width: 80%;
-
 }
 
 .description {

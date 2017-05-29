@@ -71,26 +71,28 @@ function displayFilteredList() {
 }
 
 function findIndexIdeaList(id) {
-  var list = getFromLocalStorage();
-  var mapIdea = list.map(function(idea) {
-    return idea.id;
-  })
-  var specificID = mapIdea.filter(function(number) {
-    if (parseInt(id) === number) {
-      return number;
-    }
-  })
-  var idAsNumber = specificID[0];
-  var foundObject;
-  list.forEach(function(object, index) {
-    if (parseInt(object.id) === idAsNumber) {
-      foundObject = object;
-      indexOfOriginalObject = index;
-      return object;
-    }
-  })
-  return foundObject;
+  console.log("hello")
 }
+  // var list = getFromLocalStorage();
+  // var mapIdea = list.map(function(idea) {
+  //   return idea.id;
+  // })
+  // var specificID = mapIdea.filter(function(number) {
+  //   if (parseInt(id) === number) {
+  //     return number;
+  //   }
+  // })
+  // var idAsNumber = specificID[0];
+  // var foundObject;
+  // list.forEach(function(object, index) {
+  //   if (parseInt(object.id) === idAsNumber) {
+  //     foundObject = object;
+  //     indexOfOriginalObject = index;
+  //     return object;
+  //   }
+  // })
+//   return foundObject;
+// }
 
 function filterIdeas() {
   var searchInput = $('#search-input').val().toUpperCase();
@@ -228,7 +230,7 @@ function switchDownvote(editedObject) {
 
 function switchUpvote(editedObject) {
   switch (editedObject.quality) {
-    case 'none':
+    case 'swill':
       editedObject.quality = 'plausible'
       $(this).parent().find('.quality-level').text('plausible')
       break;
