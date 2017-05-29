@@ -133,7 +133,10 @@ function prependExistingIdeas(idea) {
   $('.article-container').prepend(`<article id='${idea.id}'>
   <div class="description-container">
   <h2 contentEditable = 'true'>${idea.title}</h2>
+  <div class="top-btn-container">
+  <button class="complete-btn" id="complete-btn"></button>
   <button class="icons" id="delete-btn"></button>
+  </div>
   <p class="description" contentEditable = 'true'>${idea.body}</p>
   </div>
   <div class="voting-container">
@@ -148,7 +151,10 @@ function prependNewIdea(titleId, titleInput, bodyInput, newIdea) {
   $('.article-container').prepend(`<article id='${titleId}'>
   <div class="description-container">
   <h2 contentEditable = 'true'>${titleInput}</h2>
+  <div class="top-btn-container">
+  <button class="complete-btn" id="complete-btn"></button>
   <button class="icons" id="delete-btn"></button>
+  </div>
   <p class="description" contentEditable = 'true'>${bodyInput}</p>
   </div>
   <div class="voting-container">
@@ -222,7 +228,7 @@ function switchDownvote(editedObject) {
 
 function switchUpvote(editedObject) {
   switch (editedObject.quality) {
-    case 'swill':
+    case 'none':
       editedObject.quality = 'plausible'
       $(this).parent().find('.quality-level').text('plausible')
       break;

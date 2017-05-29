@@ -10,16 +10,39 @@
   </head>
   <body>
     <main>
-      <h1><span class="idea-color">idea</span>box</h1>
+      <h1><span class="idea-color">2Do</span>Box</h1>
       <form action="#" method="#">
         <input type="text" placeholder="Title" class="inputs" id="title-input">
-        <textarea cols="100" placeholder="Body" class="inputs" id="body-input"></textarea>
+        <textarea cols="100" placeholder="Task" class="inputs" id="body-input"></textarea>
         <input type="submit" class="inputs" id="submit-btn" value="save" disabled>
       </form>
     </main>
     <section>
-      <input type="text" placeholder="Search" class="inputs" id="search-input">
+      <input type="text" placeholder="Filter" class="inputs" id="search-input">
       <div class="article-container">
+
+
+        <article id=''>
+        <div class="description-container">
+        <h2 contentEditable = 'true'>${titleInput}</h2>
+
+        <div class="top-btn-container">
+          <button class="complete-btn" id="complete-btn"></button>
+          <button class="icons" id="delete-btn"></button>
+        </div>
+
+        <p class="description" contentEditable = 'true'>${bodyInput}</p>
+        </div>
+        <div class="voting-container">
+        <button class="icons" id="upvote-btn"></button>
+        <button class="icons" id="downvote-btn"></button>
+        <p class="quality">quality: <span class="quality-level"></span></p>
+
+        </div>
+        </article>
+
+
+
       </div>
     </section>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
