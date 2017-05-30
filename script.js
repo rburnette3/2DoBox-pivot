@@ -10,11 +10,25 @@ $('.article-container').on('click', '#upvote-btn', changeUpvoteQuality);
 $('.article-container').on('focusout', '.description', replaceEditedDescription);
 $('.article-container').on('focusout', 'h2', replaceEditedTitle);
 
+$('.article-container').on('input keydown', '.description', function(e) {
+  if (e.keyCode === 13) {
+      // replaceEditedDescription(e) - gets error below
+      // Uncaught DOMException: Failed to execute 'removeChild' on 'Node': The node to be removed is no longer a child of this node. Perhaps it was moved in a 'blur' event handler?
+    $(e.target).prop('contenteditable', false);
+  }
+})
+
+$('.article-container').on('input keydown', 'h2', function(e) {
+  if (e.keyCode === 13) {
+    $(e.target).prop('contenteditable', false);
+  }
+})
+
 $('#body-input').on('input', function() {
   toggleSaveDisable();
 });
 
-$('#body-input').on('keydown', function(e) {
+$('#body-input').on('input keydown', function(e) {
   if(e.keyCode === 13) {
     e.preventDefault();
   }
@@ -22,6 +36,11 @@ $('#body-input').on('keydown', function(e) {
 
 $('#search-input').on('input', filterIdeas);
 $('#submit-btn').on('click', submitNewIdea);
+
+
+function removePlaceholder() {
+    $('.section-placeholder').toggle()
+}
 
 $('#title-input').on('input', function() {
   toggleSaveDisable();
@@ -36,6 +55,7 @@ $(window).on('keyup', function(e) {
 
 $(window).on('load', function() {
   $('#title-input').focus();
+  removePlaceholder();
 });
 
 function changeDownvoteQuality(e) {
@@ -133,7 +153,11 @@ function prependExistingIdeas(idea) {
   $('.article-container').prepend(`<article id='${idea.id}'>
   <div class="description-container">
   <h2 contentEditable = 'true'>${idea.title}</h2>
+  <div class="top-btn-container">
+  <button class="complete-btn" id="complete-btn"></button>
   <button class="icons" id="delete-btn"></button>
+  </div>
+
   <p class="description" contentEditable = 'true'>${idea.body}</p>
   </div>
   <div class="voting-container">
@@ -148,7 +172,11 @@ function prependNewIdea(titleId, titleInput, bodyInput, newIdea) {
   $('.article-container').prepend(`<article id='${titleId}'>
   <div class="description-container">
   <h2 contentEditable = 'true'>${titleInput}</h2>
+  <div class="top-btn-container">
+  <button class="complete-btn" id="complete-btn"></button>
   <button class="icons" id="delete-btn"></button>
+  </div>
+
   <p class="description" contentEditable = 'true'>${bodyInput}</p>
   </div>
   <div class="voting-container">
@@ -165,12 +193,13 @@ function removeIdea(e) {
   localStorage.clear();
   setInLocalStorage();
   $(this).parents('article').remove();
+  removePlaceholder();
 }
 
 function replaceEditedDescription(e) {
-  var editedObject = findIndexIdeaList($(e.target).parent().parent().prop('id'));
-  editedObject.body = $(this).text();
-  replaceIdeaInLocalStorage(editedObject);
+    var editedObject = findIndexIdeaList($(e.target).parent().parent().prop('id'));
+    editedObject.body = $(this).text();
+    replaceIdeaInLocalStorage(editedObject);
 }
 
 function replaceEditedTitle(e) {
@@ -195,7 +224,7 @@ function submitNewIdea(e) {
   e.preventDefault();
   var titleInput = $('#title-input').val();
   var bodyInput = $('#body-input').val();
-  var quality = 'swill';
+  var quality = 'Normal';
   var titleId = Date.now();
   var newIdea = new ideaObject(titleInput, bodyInput, titleId, quality);
   ideaList.push(newIdea);
@@ -203,32 +232,88 @@ function submitNewIdea(e) {
   setInLocalStorage();
   clearInputs();
   filterIdeas();
+  if (localStorage.length === 0) {
+    removePlaceholder();
+  }
 }
 
+// function switchDownvote(editedObject) {
+//   switch (editedObject.quality) {
+//     case 'genius':
+//       editedObject.quality = 'plausible'
+//       $(this).parent().find('.quality-level').text('plausible')
+//       break;
+//     case 'plausible':
+//       editedObject.quality = 'swill'
+//       $(this).parent().find('.quality-level').text('swill')
+//       break;
+//     default:
+//       break;
+//   }
+// }
+
+
+///New Function?///
 function switchDownvote(editedObject) {
-  switch (editedObject.quality) {
-    case 'genius':
-      editedObject.quality = 'plausible'
-      $(this).parent().find('.quality-level').text('plausible')
+
+  switch (editedObject.quality){
+    case 'Critical':
+      editedObject.quality = 'High'
+      $(this).parent().find('.quality-level').text('High')
       break;
-    case 'plausible':
-      editedObject.quality = 'swill'
-      $(this).parent().find('.quality-level').text('swill')
+    case 'High':
+      editedObject.quality = 'Normal'
+      $(this).parent().find('.quality-level').text('Normal')
+      break;
+    case 'Normal':
+      editedObject.quality = 'low'
+      $(this).parent().find('.quality-level').text('low')
+      break;
+    case 'low':
+      editedObject.quality = 'none'
+      $(this).parent().find('.quality-level').text('none')
       break;
     default:
       break;
   }
 }
 
+
+// function switchUpvote(editedObject) {
+//   switch (editedObject.quality) {
+//     case 'swill':
+//       editedObject.quality = 'plausible'
+//       $(this).parent().find('.quality-level').text('plausible')
+//       break;
+//     case 'plausible':
+//       editedObject.quality = 'genius'
+//       $(this).parent().find('.quality-level').text('genius')
+//       break;
+//     default:
+//       break;
+//   }
+// }
+
+
+///new function///
 function switchUpvote(editedObject) {
-  switch (editedObject.quality) {
-    case 'swill':
-      editedObject.quality = 'plausible'
-      $(this).parent().find('.quality-level').text('plausible')
+
+  switch (editedObject.quality){
+    case 'None':
+      editedObject.quality = 'Low'
+      $(this).parent().find('.quality-level').text('Low')
       break;
-    case 'plausible':
-      editedObject.quality = 'genius'
-      $(this).parent().find('.quality-level').text('genius')
+    case 'Low':
+      editedObject.quality = 'Normal'
+      $(this).parent().find('.quality-level').text('Normal')
+      break;
+    case 'Normal':
+      editedObject.quality = 'High'
+      $(this).parent().find('.quality-level').text('High')
+      break;
+    case 'High':
+      editedObject.quality = 'Critical'
+      $(this).parent().find('.quality-level').text('Critical')
       break;
     default:
       break;

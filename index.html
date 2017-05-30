@@ -10,19 +10,30 @@
   </head>
   <body>
     <main>
-      <h1><span class="idea-color">idea</span>box</h1>
+      <h1><span class="idea-color">2Do</span>Box</h1>
       <form action="#" method="#">
         <input type="text" placeholder="Title" class="inputs" id="title-input">
-        <textarea cols="100" placeholder="Body" class="inputs" id="body-input"></textarea>
+        <textarea cols="100" placeholder="Task" class="inputs" id="body-input"></textarea>
         <input type="submit" class="inputs" id="submit-btn" value="save" disabled>
       </form>
     </main>
     <section>
-      <input type="text" placeholder="Search" class="inputs" id="search-input">
+      <input type="text" placeholder="Filter" class="inputs" id="search-input">
+
+      <div class="sort-btn-container">
+        <button class="sort-btn" type="button" name="critical">Critical</button>
+        <button class="sort-btn" type="button" name="high">High</button>
+        <button class="sort-btn" type="button" name="normal">Normal</button>
+        <button class="sort-btn" type="button" name="low">Low</button>
+        <button class="sort-btn" type="button" name="none">None</button>
+      </div>
+
       <div class="article-container">
+
       </div>
     </section>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="script.js"></script>
   </body>
 </html>
+div
