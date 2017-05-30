@@ -83,14 +83,14 @@ section {
 }
 
 .sort-btn-container {
-  width: 80%;
+  width: 60%;
   display: flex;
   justify-content: space-between;
   margin-bottom: 55px;
 }
 
 .sort-btn {
-  width: 65px;
+  width: 15%;
   background: #939598;
   color: #FFFFFF;
   font-size: 14px;
