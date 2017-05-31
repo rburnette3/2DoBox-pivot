@@ -110,7 +110,6 @@ section {
   color: #FFFFFF;
   font-size: 14px;
   border-radius: 25px;
-
 }
 
 .sort-btn:hover {
@@ -171,7 +170,6 @@ button:focus {
   outline: 0;
 }
 
-
 .top-btn-container {
   width: 55px;
   display: flex;
@@ -186,7 +184,6 @@ button:focus {
   float: right;
   padding-left: 5px;
   width: 23px;
-
 }
 
 #delete-btn:hover {
@@ -215,9 +212,6 @@ button:focus {
   margin-right: 15px;
 }
 
-.complete-btn {
-
-}
 
 #upvote-btn {
   background-image: url('assets/upvote.svg');
@@ -248,9 +242,10 @@ button:focus {
   }
 }
 
-@media screen and (max-width: 550px){
-  h1 {
-    font-size: 50px;
+@media screen and (max-width: 600px){
+  .sort-btn {
+    font-size: 12px;
+    width:18%;
   }
 }
 
@@ -259,9 +254,13 @@ button:focus {
     font-size: 50px;
   }
 
-  @media screen and (max-width: 400px){
+  @media screen and (max-width: 440px){
     h1 {
       font-size: 40px;
+    }
+    .sort-btn{
+      font-size: 10px;
+      width: 19%;
     }
   }
 
