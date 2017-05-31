@@ -1,5 +1,6 @@
 
 var filteredIdeas = [];
+var completedIdeas = [];
 var ideaList = getFromLocalStorage() || [];
 var indexOfOriginalObject;
 loadIdeasFromStorage();
@@ -9,6 +10,7 @@ $('.article-container').on('click', '#downvote-btn', changeDownvoteQuality);
 $('.article-container').on('click', '#upvote-btn', changeUpvoteQuality);
 $('.article-container').on('focusout', '.description', replaceEditedDescription);
 $('.article-container').on('focusout', 'h2', replaceEditedTitle);
+// $('.article-container').on('click', '.show-completed', toggleCompleted);
 
 $('.article-container').on('input keydown', '.description', function(e) {
   if (e.keyCode === 13) {
@@ -90,6 +92,18 @@ function displayFilteredList() {
   });
 }
 
+// function toggleCompleted() {
+// //grab surrounding inputs and strikethrough
+//   $(this).sibling()
+// //grab overlay and toggle CSS class
+// }
+
+function displayCompletedList() {
+  completedIdeas.forEach(function(idea) {
+    prependExistingIdeas(idea);
+  });
+}
+
 function findIndexIdeaList(id) {
   var list = getFromLocalStorage();
   var mapIdea = list.map(function(idea) {
@@ -127,6 +141,16 @@ function filterIdeas() {
   }
 }
 
+function completedIdeas() {
+  ideaList = getFromLocalStorage() || [];
+      completedIdeas = ideaList.filter(function(ideaObject) {
+         if(ideaObject.completed) {
+      return ideaObject.completed;
+         }
+       })
+    displayCompletedList();
+  }
+
 function getFromLocalStorage() {
   var parseIdeaList = JSON.parse(localStorage.getItem('ideas'));
   return parseIdeaList;
@@ -137,6 +161,7 @@ function ideaObject(title, body, id, quality) {
   this.body = body;
   this.id = id;
   this.quality = quality;
+  this.completed = false;
 }
 
 function loadIdeasFromStorage() {
@@ -150,7 +175,8 @@ function loadIdeasFromStorage() {
 }
 
 function prependExistingIdeas(idea) {
-  $('.article-container').prepend(`<article id='${idea.id}'>
+  $('.article-container').prepend(`<div class='overlay'>
+  <article id='${idea.id}'>
   <div class="description-container">
   <h2 contentEditable = 'true'>${idea.title}</h2>
   <div class="top-btn-container">
@@ -165,11 +191,13 @@ function prependExistingIdeas(idea) {
   <button class="icons" id="downvote-btn"></button>
   <p class="quality">quality: <span class="quality-level">${idea.quality}</span></p>
   </div>
-  </article>`)
+  </article>
+  </div>`)
 }
 
 function prependNewIdea(titleId, titleInput, bodyInput, newIdea) {
-  $('.article-container').prepend(`<article id='${titleId}'>
+  $('.article-container').prepend(`<div class='overlay'>
+  <article id='${titleId}'>
   <div class="description-container">
   <h2 contentEditable = 'true'>${titleInput}</h2>
   <div class="top-btn-container">
@@ -184,7 +212,8 @@ function prependNewIdea(titleId, titleInput, bodyInput, newIdea) {
   <button class="icons" id="downvote-btn"></button>
   <p class="quality">quality: <span class="quality-level">${newIdea.quality}</span></p>
   </div>
-  </article>`);
+  </article>
+  </div>`);
 }
 
 function removeIdea(e) {
