@@ -94,8 +94,8 @@ function displayFilteredList() {
 
 function toggleCompleted() {
 //grab surrounding inputs and strikethrough
-  console.log(this.siblings)
-  $(this).siblings("h2, .description").css("text-decoration", "line-through");
+  console.log($(this).parents().siblings("h2, .description"))
+  $(this).parents("article").toggleClass("completed")
 }
 
 function displayCompletedList() {
