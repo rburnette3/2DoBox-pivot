@@ -26,7 +26,7 @@ h1 {
   margin: 10px 0 30px 0;
 }
 
-.idea-color {
+.todo-color {
   color: #00A79D;
 }
 
@@ -110,7 +110,6 @@ section {
   color: #FFFFFF;
   font-size: 14px;
   border-radius: 25px;
-
 }
 
 .sort-btn:hover {
@@ -172,15 +171,14 @@ button:focus {
   outline: 0;
 }
 
-.completed {
-  background-color: grey;
 
-}
+
 
 .completed h2,
 .completed p {
   text-decoration: line-through;
 }
+
 
 
 
@@ -199,7 +197,6 @@ button:focus {
   float: right;
   padding-left: 5px;
   width: 23px;
-
 }
 
 #delete-btn:hover {
@@ -228,9 +225,6 @@ button:focus {
   margin-right: 15px;
 }
 
-.complete-btn {
-
-}
 
 #upvote-btn {
   background-image: url('assets/upvote.svg');
@@ -261,9 +255,10 @@ button:focus {
   }
 }
 
-@media screen and (max-width: 550px){
-  h1 {
-    font-size: 50px;
+@media screen and (max-width: 600px){
+  .sort-btn {
+    font-size: 12px;
+    width:18%;
   }
 }
 
@@ -272,9 +267,13 @@ button:focus {
     font-size: 50px;
   }
 
-  @media screen and (max-width: 400px){
+  @media screen and (max-width: 440px){
     h1 {
       font-size: 40px;
+    }
+    .sort-btn{
+      font-size: 10px;
+      width: 19%;
     }
   }
 

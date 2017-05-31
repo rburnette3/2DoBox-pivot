@@ -8,7 +8,7 @@ loadIdeasFromStorage();
 $('.article-container').on('click', '#delete-btn', removeIdea);
 $('.article-container').on('click', '#downvote-btn', changeDownvoteQuality);
 $('.article-container').on('click', '#upvote-btn', changeUpvoteQuality);
-$('.article-container').on('focusout', '.description', replaceEditedDescription);
+$('.article-container').on('focusout', '.description',replaceEditedDescription);
 $('.article-container').on('focusout', 'h2', replaceEditedTitle);
 $('.article-container').on('click', '.complete-btn', toggleCompleted);
 
@@ -293,7 +293,6 @@ function switchUpvote(editedObject) {
     case 'Low':
       editedObject.quality = 'Normal'
     case 'Normal':
-    console.log('test');
       editedObject.quality = 'High'
       break;
     case 'High':
