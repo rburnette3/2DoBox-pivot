@@ -291,12 +291,12 @@ function switchDownvote(editedObject) {
       $(this).parent().find('.quality-level').text('Normal')
       break;
     case 'Normal':
-      editedObject.quality = 'low'
-      $(this).parent().find('.quality-level').text('low')
+      editedObject.quality = 'Low'
+      $(this).parent().find('.quality-level').text('Low')
       break;
-    case 'low':
-      editedObject.quality = 'none'
-      $(this).parent().find('.quality-level').text('none')
+    case 'Low':
+      editedObject.quality = 'None'
+      $(this).parent().find('.quality-level').text('None')
       break;
     default:
       break;
@@ -333,6 +333,7 @@ function switchUpvote(editedObject) {
       $(this).parent().find('.quality-level').text('Normal')
       break;
     case 'Normal':
+    console.log('test');
       editedObject.quality = 'High'
       $(this).parent().find('.quality-level').text('High')
       break;
@@ -354,3 +355,18 @@ function toggleSaveDisable() {
     $('#submit-btn').prop('disabled', false);
   }
 }
+
+function filterByImportance() {
+
+}
+
+$('.sort-btn-container').on('click', '.sort-btn', function() {
+  var filterLevel = this.textContent;
+  var filteredIdeaList = ideaList.filter(function(idea) {
+    return idea.quality === filterLevel;
+  })
+  $('.article-container').empty()
+  filteredIdeaList.forEach(function(idea){
+    prependExistingIdeas(idea)
+  })
+})
