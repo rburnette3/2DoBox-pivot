@@ -103,8 +103,7 @@ section {
   background: #00A79D;
 }
 
-.article-container,
-.overlay {
+.article-container {
   align-items: center;
   display: flex;
   flex-direction: column;
