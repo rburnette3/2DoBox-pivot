@@ -145,7 +145,7 @@ function completedIdeas() {
   ideaList = getFromLocalStorage() || [];
       completedIdeas = ideaList.filter(function(ideaObject) {
          if(ideaObject.completed) {
-      return ideaObject.completed;
+           return ideaObject;
          }
        })
     displayCompletedList();
