@@ -266,84 +266,42 @@ function submitNewIdea(e) {
   }
 }
 
-// function switchDownvote(editedObject) {
-//   switch (editedObject.quality) {
-//     case 'genius':
-//       editedObject.quality = 'plausible'
-//       $(this).parent().find('.quality-level').text('plausible')
-//       break;
-//     case 'plausible':
-//       editedObject.quality = 'swill'
-//       $(this).parent().find('.quality-level').text('swill')
-//       break;
-//     default:
-//       break;
-//   }
-// }
-
-
 ///New Function?///
-function switchDownvote(editedObject) {
 
+function switchDownvote(editedObject) {
   switch (editedObject.quality){
     case 'Critical':
       editedObject.quality = 'High'
-      $(this).parent().find('.quality-level').text('High')
       break;
     case 'High':
       editedObject.quality = 'Normal'
-      $(this).parent().find('.quality-level').text('Normal')
       break;
     case 'Normal':
       editedObject.quality = 'Low'
-      $(this).parent().find('.quality-level').text('Low')
       break;
     case 'Low':
       editedObject.quality = 'None'
-      $(this).parent().find('.quality-level').text('None')
       break;
     default:
       break;
   }
 }
 
-
-// function switchUpvote(editedObject) {
-//   switch (editedObject.quality) {
-//     case 'swill':
-//       editedObject.quality = 'plausible'
-//       $(this).parent().find('.quality-level').text('plausible')
-//       break;
-//     case 'plausible':
-//       editedObject.quality = 'genius'
-//       $(this).parent().find('.quality-level').text('genius')
-//       break;
-//     default:
-//       break;
-//   }
-// }
-
-
 ///new function///
-function switchUpvote(editedObject) {
 
+function switchUpvote(editedObject) {
   switch (editedObject.quality){
     case 'None':
       editedObject.quality = 'Low'
-      $(this).parent().find('.quality-level').text('Low')
       break;
     case 'Low':
       editedObject.quality = 'Normal'
-      $(this).parent().find('.quality-level').text('Normal')
-      break;
     case 'Normal':
     console.log('test');
       editedObject.quality = 'High'
-      $(this).parent().find('.quality-level').text('High')
       break;
     case 'High':
       editedObject.quality = 'Critical'
-      $(this).parent().find('.quality-level').text('Critical')
       break;
     default:
       break;
@@ -355,6 +313,7 @@ function toggleSaveDisable() {
   var body = $('#body-input').val();
   if ((title === '') || (body === '')) {
     $('#submit-btn').prop('disabled', true);
+
   } else {
     $('#submit-btn').prop('disabled', false);
   }
