@@ -117,8 +117,7 @@ section {
   background: #00A79D;
 }
 
-.article-container,
-.overlay {
+.article-container {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -143,6 +142,7 @@ h2 {
   padding-bottom: 20px;
   text-overflow: ellipsis;
   width: 80%;
+  text-decoration: none;
 }
 
 .description {
@@ -151,6 +151,7 @@ h2 {
   line-height: 1.2;
   padding: 3px 0;
   width: 90%;
+  text-decoration: none;
 }
 
 button {
@@ -170,6 +171,18 @@ button:hover {
 button:focus {
   outline: 0;
 }
+
+.completed {
+  background-color: grey;
+
+}
+
+.completed h2,
+.completed p {
+  text-decoration: line-through;
+}
+
+
 
 
 .top-btn-container {
